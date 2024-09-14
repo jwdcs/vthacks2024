@@ -20,7 +20,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <RequiredAuthProvider authUrl={'https://45264341.propelauthtest.com'}>
+      <RequiredAuthProvider authUrl={'https://auth.bitefight.mbrenn.net/'}>
         <App />
       </RequiredAuthProvider>
     </ThemeProvider>
