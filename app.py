@@ -32,31 +32,22 @@ countries = {
 @app.route('/start_game', methods=['GET'])
 def start_game():
     try:
-        card1, card2 = random.sample(list(countries.keys()), 2)
-        response1 = requests.get(countries[card1])
-        response2 = requests.get(countries[card2])
+        cards = []
+        for country, url in countries.items():
+            response = requests.get(url)
+            if not response.ok:
+                return jsonify({'error': 'Failed to fetch country data'}), 500
+            data = response.json()[0]
+            nationality = data['demonyms']['eng']['m']
+            cards.append({
+                'name': country,
+                'nationality': nationality,
+                'imageUrl': data['flags']['png']
+            })
         
-        if not response1.ok or not response2.ok:
-            return jsonify({'error': 'Failed to fetch country data'}), 500
+        random.shuffle(cards)
         
-        data1 = response1.json()[0]
-        data2 = response2.json()[0]
-        
-        nationality1 = data1['demonyms']['eng']['m'] 
-        nationality2 = data2['demonyms']['eng']['m']  
-        
-        return jsonify({
-            'card1': {
-                'name': card1,
-                'nationality': nationality1,
-                'imageUrl': data1['flags']['png']  
-            },
-            'card2': {
-                'name': card2,
-                'nationality': nationality2,
-                'imageUrl': data2['flags']['png'] 
-            }
-        })
+        return jsonify(cards)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

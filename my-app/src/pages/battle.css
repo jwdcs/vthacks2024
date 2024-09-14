@@ -32,8 +32,38 @@
     top: 0%;
   }
 
-  90% {
+  100% {
     top: -2000%;
     opacity: 1;
+  }
+}
+
+.hit {
+  animation: hit 1s ease-in forwards;
+}
+
+@keyframes hit {
+  0% {
+    top: 0%;
+  }
+
+  40% {
+    top: calc(0% - 150px);
+    height: 100%;
+  }
+
+  50% {
+    top: calc(0% - 150px);
+    height: 90%;
+  }
+
+  60% {
+    top: calc(0% - 150px);
+    height: 100%;
+  }
+
+  100% {
+    top: 0%;
+    height: 100%;
   }
 }
