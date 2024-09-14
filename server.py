@@ -28,7 +28,6 @@ countries = {
     "Argentina": "https://restcountries.com/v3.1/name/argentina?fullText=true",
     "Portugal": "https://restcountries.com/v3.1/name/portugal?fullText=true",
     "Brazil": "https://restcountries.com/v3.1/name/brazil?fullText=true",
-    "Morocco": "https://restcountries.com/v3.1/name/morocco?fullText=true",
     "Belgium": "https://restcountries.com/v3.1/name/belgium?fullText=true"
 }
 
