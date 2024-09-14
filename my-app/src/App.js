@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Game from './components/Game';
 import Header from './components/Header';
 import About from './pages/About';
+import Battle from './pages/Battle';
 import { Box } from '@mui/material';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/game" element={<Game />} />
-          <Route path="/" element={<Game />} />
+          <Route path="/battle" element={<Battle />} />
           <Route path="/home" element={<Game />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<></>} />
