@@ -35,6 +35,13 @@ function Battle() {
         )
       })}
       <Button onClick={() => requestOrientationPermission()}> Get permission!</Button>
+      <Button onClick={() => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }}> Fullscreen!</Button>
     </Box>
   );
 }
