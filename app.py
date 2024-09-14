@@ -75,6 +75,3 @@ def select_winner():
             'losers': [loser]
         })
     return jsonify({'error': 'Invalid input'}), 400
-
-if __name__ == '__main__':
-    app.run()
