@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Battle from './Battle';
-import { Box } from '@mui/material'
+import { Box, Card } from '@mui/material'
+import Header from './components/Header';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -15,7 +16,8 @@ function App() {
 
   return (
     <Box sx={{ width: "100vw", height: "100vh" }}>
-      <Battle />
+      {/* <Battle /> */}
+      <Header></Header>
     </Box>
   );
 }
