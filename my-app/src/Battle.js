@@ -1,8 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 function Battle() {
-  const [orientation, setOrientation] = useState([0,0,0])
+  const [orientation, setOrientation] = useState([0,0,0]);
+
+  const requestOrientationPermission = () => {
+    DeviceOrientationEvent.requestPermission().then(permissionState => {
+    if (permissionState === 'granted') {
+      window.addEventListener('deviceorientation', (e) => {
+        setOrientation([e.alpha, e.beta, e.gamma])
+    });
+      console.log("DeviceMotionEvent permission granted.");
+    } else {
+      console.log("DeviceMotionEvent permission denied.");
+    }}).catch(err => {
+        console.error("Error requesting DeviceMotionEvent permission:", err);
+    });
+  };
 
   useEffect(() => {
     window.addEventListener("deviceorientation", (e) => {
@@ -20,6 +34,7 @@ function Battle() {
           </>
         )
       })}
+      <Button onClick={() => requestOrientationPermission()}> Get permission!</Button>
     </Box>
   );
 }
