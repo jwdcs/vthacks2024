@@ -30,8 +30,8 @@ function Battle() {
   const [winnerState, setWinnerState] = useState(false)
 
   const [cards, setCards] = useState([]);
-  const [topCountry, setTopCountry] = useState({ name: "Italy", nationality: "Italian" });
-  const [bottomCountry, setBottomCountry] = useState({ name: "America", nationality: "American" });
+  const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
+  const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
 
   const navigate = useNavigate(); // To handle redirects
 
