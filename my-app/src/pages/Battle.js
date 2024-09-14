@@ -59,9 +59,9 @@ function Battle() {
 
     if (location === "top") {
       setBottomCountry(topCountry)
-      //setTopCountry(cards.pop())
+      setTopCountry(cards.pop())
     } else {
-      //setTopCountry(cards.pop())
+      setTopCountry(cards.pop())
     }
     setTopAnimationState("newCard")
     playVersusAnimation()
@@ -162,23 +162,20 @@ function Battle() {
 
   useEffect(() => {
     requestOrientationPermission();
-    // const fetchCards = async () => {
-    //   try {
-    //     const response = await fetch('http://localhost:5000/start_game');
-    //     if (!response.ok) throw new Error('Network response was not ok');
-    //     const data = await response.json();
-    //     setCards(data);
-    //     console.log(data)
-    //     setTopCountry(data.pop())
-    //     setBottomCountry(data.pop())
-    //     setCurrent(null);
-    //   } catch (error) {
-    //     console.error(error)
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchCards();
+    const fetchCards = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/start_game');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        setCards(data);
+        console.log(data)
+        setTopCountry(data.pop())
+        setBottomCountry(data.pop())
+      } catch (error) {
+        console.error(error)
+      }
+    };
+    fetchCards();
   }, [])
 
   return (

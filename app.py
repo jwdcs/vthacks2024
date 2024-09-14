@@ -61,7 +61,7 @@ def start_game():
 
         random.shuffle(cards)
         
-        return jsonify({'card1': cards[0], 'card2': cards[1]})
+        return jsonify(cards)
     except requests.exceptions.RequestException as e:
         return jsonify({'error': f'Request failed: {str(e)}'}), 500
     except Exception as e:
