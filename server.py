@@ -9,7 +9,7 @@ from fastapi import Depends
 
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 
 countries = {
     "Italy": "https://restcountries.com/v3.1/name/italy?fullText=true",
