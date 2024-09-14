@@ -5,6 +5,9 @@ import Header from './components/Header';
 import About from './pages/About';
 import Battle from './pages/Battle';
 import { Box } from '@mui/material';
+import { withAuthInfo } from '@propelauth/react';
+
+const AuthenticatedGame = withAuthInfo(Game);
 
 function App() {
   return (
