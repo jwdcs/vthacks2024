@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Battle from './Battle';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -13,8 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Flask and React Integration</h1>
-      <p>{message}</p>
+      <Battle/>
     </div>
   );
 }
