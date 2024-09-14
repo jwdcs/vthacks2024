@@ -164,7 +164,7 @@ function Battle() {
     requestOrientationPermission();
     const fetchCards = async () => {
       try {
-        const response = await fetch('http://localhost:5000/start_game');
+        const response = await fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/start_game');
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         setCards(data);

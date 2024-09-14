@@ -10,7 +10,7 @@ const Game = () => {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await fetch('http://localhost:5000/start_game');
+                const response = await fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/start_game');
                 const data = await response.json();
                 // console.log('Fetched cards:', data);
                 setCards({ card1: data.card1, card2: data.card2 });
@@ -26,7 +26,7 @@ const Game = () => {
 
     const selectCard = async (winner, loser) => {
         try {
-            const response = await fetch('http://localhost:5000/select_winner', {
+            const response = await fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/select_winner', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
