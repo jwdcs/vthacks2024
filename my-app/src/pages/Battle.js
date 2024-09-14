@@ -49,6 +49,7 @@ function Battle() {
   }
 
   const newCard = (location) => {
+    console.log(cards)
     if (cards.length === 0) {
       if (location === "top") {
         setBottomCountry(topCountry)
@@ -168,7 +169,6 @@ function Battle() {
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         setCards(data);
-        console.log(data)
         setTopCountry(data.pop())
         setBottomCountry(data.pop())
       } catch (error) {
@@ -180,6 +180,9 @@ function Battle() {
 
   return (
     <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
+      <Button onClick={() => {
+        topWins()
+      }}>hi</Button>
       <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
         <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
           <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>
