@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
-import Battle from './Battle';
+import Battle from './pages/Battle';
 import Header from './components/Header';
 import About from './pages/About';
+import { Box } from '@mui/material';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -17,12 +18,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/battle" element={<Battle />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<></>} />
-      </Routes>
+      <Box sx={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+        <Header />
+        <Routes>
+          <Route path="/battle" element={<Battle />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<></>} />
+        </Routes>
+      </Box>
     </BrowserRouter>
   );
 }
