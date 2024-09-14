@@ -4,6 +4,7 @@ import Game from './components/Game';
 import Header from './components/Header';
 import About from './pages/About';
 import Battle from './pages/Battle';
+import Preferences from './pages/Preferences'
 import { Box } from '@mui/material';
 import { withAuthInfo } from '@propelauth/react';
 
@@ -27,7 +28,7 @@ function App() {
           <Route path="/battle" element={<AuthBattle />} />
           <Route path="/" element={<AuthBattle />} />
           <Route path="/about" element={<About />} />
-          <Route path="/services" element={<About />} />
+          <Route path="/services" element={<Preferences />} />
         </Routes>
       </Box>
     </BrowserRouter>
