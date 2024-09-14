@@ -1,3 +1,5 @@
 # Ignore virtual environment
 hack2024/
 node_modules
+.env
+venv

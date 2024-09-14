@@ -1,0 +1,14 @@
+[
+    {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "allergens": ["Peanuts", "Shellfish"],
+        "dietary_restrictions": ["Vegan"]
+    },
+    {
+        "name": "Jall Smith",
+        "email": "jane@example.com",
+        "allergens": ["Gluten"],
+        "dietary_restrictions": ["Vegetarian"]
+    }
+]
