@@ -9,6 +9,15 @@ import { withAuthInfo } from '@propelauth/react';
 
 const AuthBattle = withAuthInfo(Battle);
 
+// async function whoAmI(accessToken) {
+//   return fetch('/api/whoami', {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//     },
+//   }).then((res) => res.json())
+// }
+
 function App() {
   return (
     <BrowserRouter>

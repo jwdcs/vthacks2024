@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
+import { useLogoutFunction } from '@propelauth/react';
 
 const LogoText = styled('span')(({ theme }) => ({
     fontFamily: 'Montserrat, sans-serif',
@@ -41,8 +42,9 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const navigate = useNavigate(); // To handle redirects
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
+    const logout = useLogoutFunction();
 
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -52,9 +54,13 @@ const Header = () => {
         setAnchorEl(null);
     };
 
-    const handleSignOut = () => {
-        // Logic for sign out
-        console.log('Signing out...');
+    const handleSignOut = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error('Sign-out failed:', error);
+        }
         handleMenuClose();
     };
 

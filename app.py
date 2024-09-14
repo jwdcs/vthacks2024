@@ -2,6 +2,11 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import random
 import requests
+from propelauth_fastapi import init_auth, User
+from fastapi import Depends 
+
+# auth = init_auth("https://45264341.propelauthtest.com", "589e9cd8e93f5c992b0be9aae4b75e968b033bf86f089cdce694a2f4a02bed2740455ce3e6de475ef96ad48b6d6d916d")
+
 
 app = Flask(__name__)
 CORS(app)
@@ -26,6 +31,10 @@ countries = {
     "Morocco": "https://restcountries.com/v3.1/name/morocco?fullText=true",
     "Belgium": "https://restcountries.com/v3.1/name/belgium?fullText=true"
 }
+
+# @app.get("/api/whoami")
+# async def root(current_user: User = Depends(auth.require_user)):
+#     return {"user_id": f"{current_user.user_id}"}
 
 @app.route('/start_game', methods=['GET'])
 def start_game():
