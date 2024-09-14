@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 
 function Battle() {
   const [orientation, setOrientation] = useState([0,0,0]);
@@ -26,6 +26,7 @@ function Battle() {
 
   return (
     <Box sx={{ width: "100vw", height: "100vh" }}>
+      <Stack>
       {orientation.map((data) => {
         return (
           <>
@@ -42,6 +43,7 @@ function Battle() {
           document.exitFullscreen();
         }
       }}> Fullscreen!</Button>
+      </Stack>
     </Box>
   );
 }
