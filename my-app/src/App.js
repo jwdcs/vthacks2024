@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
 import Battle from './Battle';
-import { Box, Card } from '@mui/material'
 import Header from './components/Header';
+import About from './pages/About';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -15,10 +16,14 @@ function App() {
   }, []);
 
   return (
-    <Box sx={{ width: "100vw", height: "100vh" }}>
-      {/* <Battle /> */}
-      <Header></Header>
-    </Box>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/battle" element={<Battle />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<></>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

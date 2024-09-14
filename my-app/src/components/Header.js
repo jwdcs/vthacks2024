@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
 
 const LogoText = styled('span')(({ theme }) => ({
@@ -37,6 +42,23 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const Header = () => {
+    const navigate = useNavigate(); // To handle redirects
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleMenuClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleSignOut = () => {
+        // Logic for sign out
+        console.log('Signing out...');
+        handleMenuClose();
+    };
+
     return (
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
             <Toolbar>
@@ -50,11 +72,22 @@ const Header = () => {
                 </Box>
 
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                    <StyledButton color="inherit">Battle!</StyledButton>
-                    <StyledButton color="inherit">About</StyledButton>
-                    <StyledButton color="inherit">Services</StyledButton>
-                    <StyledButton color="inherit">Contact</StyledButton>
+                    <StyledButton color="inherit" onClick={() => navigate('/battle')}>Battle!</StyledButton>
+                    <StyledButton color="inherit" onClick={() => navigate('/about')}>About</StyledButton>
+                    <StyledButton color="inherit" onClick={() => navigate('/services')}>Services</StyledButton>
                 </Box>
+
+                <IconButton onClick={handleMenuClick} sx={{ ml: 2 }}>
+                    <Avatar alt="Profile" />
+                </IconButton>
+
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                >
+                    <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                </Menu>
             </Toolbar>
         </AppBar>
     );
