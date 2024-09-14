@@ -55,22 +55,6 @@ def start_game():
         return jsonify({'card1': cards[0], 'card2': cards[1]})
     except requests.exceptions.RequestException as e:
         return jsonify({'error': f'Request failed: {str(e)}'}), 500
-        cards = []
-        for country, url in countries.items():
-            response = requests.get(url)
-            if not response.ok:
-                return jsonify({'error': 'Failed to fetch country data'}), 500
-            data = response.json()[0]
-            nationality = data['demonyms']['eng']['m']
-            cards.append({
-                'name': country,
-                'nationality': nationality,
-                'imageUrl': data['flags']['png']
-            })
-        
-        random.shuffle(cards)
-        
-        return jsonify(cards)
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
@@ -90,6 +74,3 @@ def select_winner():
             'losers': [loser]
         })
     return jsonify({'error': 'Invalid input'}), 400
-
-if __name__ == '__main__':
-    app.run()
