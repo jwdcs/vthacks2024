@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Battle from './Battle';
+import { Box}  from '@mui/material'
 
 function App() {
   const [message, setMessage] = useState('');
@@ -13,9 +14,9 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <Box sx={{ width: "100vw", height: "100vh"}}>
       <Battle/>
-    </div>
+    </Box>
   );
 }
 
