@@ -5,7 +5,7 @@ import right from "../animations/right.webp"
 import vs from "../animations/vs.webp"
 import stone from "../stoneslab.png"
 import fall from "../animations/fall.webp"
-import rise from "../animations/rise2.webp"
+import rise from "../animations/rise-minimal.webp"
 import "./battle.css"
 
 function Battle() {

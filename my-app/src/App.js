@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Game from './pages/components/Game';
+import Game from './components/Game';
 import Header from './components/Header';
 import About from './pages/About';
 import { Box } from '@mui/material';
