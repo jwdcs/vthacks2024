@@ -7,7 +7,7 @@ import Battle from './pages/Battle';
 import { Box } from '@mui/material';
 import { withAuthInfo } from '@propelauth/react';
 
-const AuthenticatedGame = withAuthInfo(Game);
+const AuthBattle = withAuthInfo(Battle);
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
       <Box sx={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
         <Header />
         <Routes>
-          <Route path="/battle" element={<Battle />} />
-          <Route path="/" element={<Battle />} />
+          <Route path="/battle" element={<AuthBattle />} />
+          <Route path="/" element={<AuthBattle />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<About />} />
         </Routes>
