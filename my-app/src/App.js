@@ -12,11 +12,10 @@ function App() {
       <Box sx={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
         <Header />
         <Routes>
-          <Route path="/game" element={<Game />} />
           <Route path="/battle" element={<Battle />} />
-          <Route path="/home" element={<Game />} />
+          <Route path="/" element={<Battle />} />
           <Route path="/about" element={<About />} />
-          <Route path="/services" element={<></>} />
+          <Route path="/services" element={<About />} />
         </Routes>
       </Box>
     </BrowserRouter>

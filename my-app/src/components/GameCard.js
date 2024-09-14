@@ -14,7 +14,7 @@ const GameCard = ({ country }) => {
         <Card sx={{ width: "100%", height: "100%" }}>
             <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Stack direction="column" spacing={1}>
-                    <img src={defaultImage} width={180} height={90}>
+                    <img src={defaultImage} width={180} height={130}>
 
                     </img>
                     <Stack direction="row">

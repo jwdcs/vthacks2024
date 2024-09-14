@@ -7,6 +7,7 @@ import vs from "../animations/vs.webp"
 import stone from "../stoneslab.png"
 import fall from "../animations/fall.webp"
 import rise from "../animations/crack.webp"
+import confetti from "../animations/confetti.webp"
 import "./battle.css"
 import GameCard from '../components/GameCard';
 
@@ -21,9 +22,12 @@ function Battle() {
   const [fallSmokeBox, setFallSmokeBox] = useState(false);
   const [riseRocks, setRiseRocks] = useState(null)
   const [riseRocksBox, setRiseRocksBox] = useState(false);
+  const [confettiFall, setConfettiFall] = useState(null)
+  const [confettiFallBox, setConfettiFallBox] = useState(false);
 
   const [topAnimationState, setTopAnimationState] = useState(null)
   const [bottomAnimationState, setBottomAnimationState] = useState(null)
+  const [winnerState, setWinnerState] = useState(false)
 
   const [cards, setCards] = useState([]);
   const [topCountry, setTopCountry] = useState({ name: "Italy", nationality: "Italian" });
@@ -31,18 +35,33 @@ function Battle() {
 
   const navigate = useNavigate(); // To handle redirects
 
+  const declareWinner = () => {
+    setWinnerState(true)
+    setBottomAnimationState("winner")
+    setConfettiFall(confetti)
+    setConfettiFallBox(true)
+    setTimeout(() => {
+      setConfettiFall(null)
+      setTimeout(() => {
+        setConfettiFallBox(false)
+      }, 10)
+    }, 18000)
+  }
 
   const newCard = (location) => {
     if (cards.length === 0) {
-      navigate('/winner')
-      //use context to pass the winner over
+      if (location === "top") {
+        setBottomCountry(topCountry)
+      }
+      declareWinner()
+      return;
     }
 
     if (location === "top") {
       setBottomCountry(topCountry)
-      setTopCountry(cards.pop())
+      //setTopCountry(cards.pop())
     } else {
-      setTopCountry(cards.pop())
+      //setTopCountry(cards.pop())
     }
     setTopAnimationState("newCard")
     playVersusAnimation()
@@ -82,6 +101,7 @@ function Battle() {
         setFallSmoke(null)
         setTimeout(() => {
           setFallSmokeBox(false)
+          setTopAnimationState(null)
           newCard("top")
         }, 10)
       }, 1300)
@@ -100,9 +120,8 @@ function Battle() {
         setRiseRocks(null)
         setTimeout(() => {
           setRiseRocksBox(false)
-          newCard("bottom")
         }, 10)
-      }, 2000)
+      }, 1200)
     }, 350)
     setTimeout(() => {
       setFallSmoke(fall)
@@ -111,6 +130,9 @@ function Battle() {
         setFallSmoke(null)
         setTimeout(() => {
           setFallSmokeBox(false)
+          setTopAnimationState(null)
+          setBottomAnimationState(null)
+          newCard("bottom")
         }, 10)
       }, 1300)
     }, 1000)
@@ -121,10 +143,16 @@ function Battle() {
       DeviceOrientationEvent.requestPermission().then(permissionState => {
         if (permissionState === 'granted') {
           window.addEventListener('devicemotion', (e) => {
-            if (e.rotationRate.alpha > 300) {
-              topWins()
-            } else if (e.rotationRate.alpha < -300) {
-              bottomWins()
+            if (!winnerState) {
+              if (e.rotationRate.alpha > 300) {
+                if (topAnimationState === null && bottomAnimationState === null) {
+                  topWins()
+                }
+              } else if (e.rotationRate.alpha < -300) {
+                if (topAnimationState === null && bottomAnimationState === null) {
+                  bottomWins()
+                }
+              }
             }
           });
         }
@@ -154,14 +182,10 @@ function Battle() {
   }, [])
 
   return (
-    <Box sx={{ width: "100vw", height: "100vh" }}>
-      {/* <Button onClick={() => {
-        bottomWins()
-      }}> Play animation!</Button> */}
-
-      <Stack sx={{ width: "100%", height: "calc(100% - 70px)", mt: 7 }} alignItems="center" direction="column">
-        <Box sx={{ position: "relative", border: "1px solid white", width: "60%", height: "30%" }}>
-          <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", backgroundColor: "cornsilk", zIndex: 3 }}>
+    <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
+      <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
+        <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
+          <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>
             <GameCard country={topCountry}></GameCard>
           </Box>
         </Box>
@@ -170,17 +194,19 @@ function Battle() {
           {versusBox && <Box component="img" sx={{ position: "absolute", left: 80, top: 0, zIndex: 2 }} width={250} src={versus} />}
           {leftLightningBox && <Box component="img" sx={{ position: "absolute", left: -40, top: 0 }} width={250} src={leftLightning} />}
         </Box>
-        <Box sx={{ position: "relative", border: "1px solid white", width: "60%", height: "30%" }}>
-          <Box className={bottomAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", backgroundColor: "white" }}>
+        <Box sx={{ position: "relative", zIndex: 2, border: winnerState ? "0px solid #EA5723" : "1px solid 121212", width: "60%", height: "40%", transition: "border 1s" }}>
+          <Box className={bottomAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 2 }}>
             <GameCard country={bottomCountry}></GameCard>
           </Box>
         </Box>
       </Stack>
 
-      <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 100, position: "absolute", zIndex: -1, top: "calc(100% - 100px)", left: 0 }}>
+      <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 100, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
       </Box>
       {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 220, zIndex: 999 }} width={250} src={riseRocks} />}
-      {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 250px)", zIndex: 999 }} width={500} src={fallSmoke} />}
+      {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}
+      {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 0, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
+      {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: -200, top: -300, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
 
 
     </Box>

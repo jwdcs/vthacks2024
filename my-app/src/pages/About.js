@@ -16,6 +16,7 @@ const About = () => {
                 boxSizing: 'border-box'
             }}
         >
+            <br />
             <img
                 src={`${process.env.PUBLIC_URL}/vthackslogo.svg`}
                 alt="SVG Illustration"
@@ -37,7 +38,7 @@ const About = () => {
                     maxWidth: '800px',
                     textAlign: 'center',
                 }}>
-                This is a project made by James de Chutkowski, Matthew Brenningmeyer, Abhishek Kotgire, Abhay Raghavan for VT Hacks 12! It is a [description here]
+                This is a project made by <span style={{ color: "#EA5723" }}>James de Chutkowski</span>,  <span style={{ color: "#EA5723" }}>Matthew Brenningmeyer</span>,  <span style={{ color: "#EA5723" }}>Abhishek Kotgire</span>, and <span style={{ color: "#EA5723" }}>Abhay Raghavan</span> for VTHacks 12.
             </Typography>
             <Typography
                 variant="body1"
@@ -45,25 +46,33 @@ const About = () => {
                     maxWidth: '800px',
                     textAlign: 'center',
                 }}>
-                Check out our GitHub repo and Devpost by clicking the images below!
+                <br />
+                <br />
+                Check out our GitHub and Devpost by clicking the images below!
             </Typography>
             <Box
                 sx={{
                     display: 'flex',
                     justifyContent: 'center', // Center both images horizontally
                     gap: '20px', // Space between the images
+                    mt: 3,
                 }}
             >
-                <img
-                    src={`${process.env.PUBLIC_URL}/github.svg`}
-                    alt="GitHub Logo"
-                    style={{ width: '150px', height: 'auto' }}
-                />
-                <img
-                    src={`${process.env.PUBLIC_URL}/devpost.svg`}
-                    alt="Devpost Logo"
-                    style={{ width: '150px', height: 'auto' }}
-                />
+                <a href='https://github.com/jwdcs/vthacks2024'>
+                    <img
+                        src={`${process.env.PUBLIC_URL}/github.svg`}
+                        alt="GitHub Logo"
+                        color='white'
+                        style={{ width: '150px', height: '150px', color: 'white' }}
+                    />
+                </a>
+                <a href='https://devpost.com/software/thunder-dough'>
+                    <img
+                        src={`${process.env.PUBLIC_URL}/devpost.svg`}
+                        alt="Devpost Logo"
+                        style={{ width: '150px', height: '150px' }}
+                    />
+                </a>
             </Box>
         </Box >
     );
