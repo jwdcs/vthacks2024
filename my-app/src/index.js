@@ -20,7 +20,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <RequiredAuthProvider authUrl={process.env.REACT_APP_AUTH_URL}>
+      <RequiredAuthProvider authUrl={'https://45264341.propelauthtest.com'}>
         <App />
       </RequiredAuthProvider>
     </ThemeProvider>
