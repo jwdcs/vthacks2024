@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, Stack } from '@mui/material';
 import left from "../animations/left.webp"
 import right from "../animations/right.webp"
@@ -24,12 +25,28 @@ function Battle() {
   const [topAnimationState, setTopAnimationState] = useState(null)
   const [bottomAnimationState, setBottomAnimationState] = useState(null)
 
-  const [cards, setCards] = useState({ card1: null, card2: null });
+  const [cards, setCards] = useState([]);
   const [topCountry, setTopCountry] = useState({ name: "Italy", nationality: "Italian" });
   const [bottomCountry, setBottomCountry] = useState({ name: "America", nationality: "American" });
-  const [current, setCurrent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  const navigate = useNavigate(); // To handle redirects
+
+
+  const newCard = (location) => {
+    if (cards.length === 0) {
+      navigate('/winner')
+      //use context to pass the winner over
+    }
+
+    if (location === "top") {
+      setBottomCountry(topCountry)
+      setTopCountry(cards.pop())
+    } else {
+      setTopCountry(cards.pop())
+    }
+    setTopAnimationState("newCard")
+    playVersusAnimation()
+  }
 
   const playVersusAnimation = () => {
     if (versus === null) {
@@ -65,6 +82,7 @@ function Battle() {
         setFallSmoke(null)
         setTimeout(() => {
           setFallSmokeBox(false)
+          newCard("top")
         }, 10)
       }, 1300)
     }, 700)
@@ -82,6 +100,7 @@ function Battle() {
         setRiseRocks(null)
         setTimeout(() => {
           setRiseRocksBox(false)
+          newCard("bottom")
         }, 10)
       }, 2000)
     }, 350)
@@ -116,19 +135,17 @@ function Battle() {
   useEffect(() => {
     requestOrientationPermission();
     // const fetchCards = async () => {
-    //   setLoading(true);
-    //   setError(null);
     //   try {
     //     const response = await fetch('http://localhost:5000/start_game');
     //     if (!response.ok) throw new Error('Network response was not ok');
     //     const data = await response.json();
     //     setCards(data);
     //     console.log(data)
-    //     setTopCountry(data[0])
-    //     setBottomCountry(data[1])
+    //     setTopCountry(data.pop())
+    //     setBottomCountry(data.pop())
     //     setCurrent(null);
     //   } catch (error) {
-    //     setError(error.message);
+    //     console.error(error)
     //   } finally {
     //     setLoading(false);
     //   }
@@ -145,7 +162,7 @@ function Battle() {
       <Stack sx={{ width: "100%", height: "calc(100% - 70px)", mt: 7 }} alignItems="center" direction="column">
         <Box sx={{ position: "relative", border: "1px solid white", width: "60%", height: "30%" }}>
           <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", backgroundColor: "cornsilk", zIndex: 3 }}>
-            <GameCard country={{ name: "Italy", nationality: "Italian" }}></GameCard>
+            <GameCard country={topCountry}></GameCard>
           </Box>
         </Box>
         <Box sx={{ width: "100%", height: 150, position: "relative" }}>
@@ -155,7 +172,7 @@ function Battle() {
         </Box>
         <Box sx={{ position: "relative", border: "1px solid white", width: "60%", height: "30%" }}>
           <Box className={bottomAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", backgroundColor: "white" }}>
-            <GameCard country={{ name: "Italy", nationality: "Italian" }}></GameCard>
+            <GameCard country={bottomCountry}></GameCard>
           </Box>
         </Box>
       </Stack>
