@@ -218,7 +218,7 @@ function Battle() {
 
       <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 250, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
       </Box>
-      {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 220, zIndex: 999 }} width={250} src={riseRocks} />}
+      {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 80, top: 250, zIndex: 999 }} width={250} src={riseRocks} />}
       {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}
       {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 0, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
       {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: -200, top: -300, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
