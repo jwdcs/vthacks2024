@@ -35,7 +35,7 @@ function WinnerPage() {
             }}
         >
             <Typography variant="h2" component="h1" gutterBottom>
-                {winnerData.nationality + " "}Wins!
+                {winnerData.nationality + " Food "}Wins!
             </Typography>
             <Box sx={{ mt: 4, width: '80%' }}>
                 {winnerData && (
