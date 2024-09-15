@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Stack } from '@mui/material';
 import left from "../animations/left.webp"
@@ -29,11 +29,12 @@ function Battle() {
   const [bottomAnimationState, setBottomAnimationState] = useState(null)
   const [winnerState, setWinnerState] = useState(false)
 
-  const [cards, setCards] = useState([]);
   const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
 
   const navigate = useNavigate(); // To handle redirects
+
+  let cards = useRef([]);
 
   const declareWinner = () => {
     setWinnerState(true)
@@ -50,7 +51,7 @@ function Battle() {
 
   const newCard = (location) => {
     console.log(cards)
-    if (cards.length === 0) {
+    if (cards.current.length === 0) {
       if (location === "top") {
         setBottomCountry(topCountry)
       }
@@ -60,9 +61,9 @@ function Battle() {
 
     if (location === "top") {
       setBottomCountry(topCountry)
-      setTopCountry(cards.pop())
+      setTopCountry(cards.current.pop())
     } else {
-      setTopCountry(cards.pop())
+      setTopCountry(cards.current.pop())
     }
     setTopAnimationState("newCard")
     playVersusAnimation()
@@ -167,10 +168,10 @@ function Battle() {
       try {
         const response = await fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/start_game');
         if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        setCards(data);
-        setTopCountry(data.pop())
-        setBottomCountry(data.pop())
+        cards.current = await response.json();
+        console.log(cards.current)
+        setTopCountry(cards.current.pop())
+        setBottomCountry(cards.current.pop())
       } catch (error) {
         console.error(error)
       }
@@ -180,9 +181,6 @@ function Battle() {
 
   return (
     <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
-      <Button onClick={() => {
-        topWins()
-      }}>hi</Button>
       <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
         <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
           <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>

@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
 
 const GameCard = ({ country }) => {
-    console.log('Rendering GameCard with country:', country);
 
     // Default image if URL is not provided or is invalid
     const defaultImage = 'https://via.placeholder.com/140';
