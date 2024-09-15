@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { Box, Button, Stack } from '@mui/material';
 import left from "../animations/left.webp"
 import right from "../animations/right.webp"
@@ -10,6 +10,7 @@ import rise from "../animations/crack.webp"
 import confetti from "../animations/confetti.webp"
 import "./battle.css"
 import GameCard from '../components/GameCard';
+import { WinnerContext } from '../WinnerContext.js';
 
 function Battle() {
   const [leftLightning, setLeftLightning] = useState(null);
@@ -33,6 +34,8 @@ function Battle() {
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
 
   const navigate = useNavigate(); // To handle redirects
+  const winnerContext = useContext(WinnerContext);
+
 
   let cards = useRef([]);
   const topCountryRef = useRef(topCountry)
@@ -67,6 +70,32 @@ function Battle() {
         setConfettiFallBox(false)
       }, 10)
     }, 18000)
+    const prompt = "Give me a list of 10 " + bottomCountry.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
+    const pref = localStorage.getItem("preferences")
+    if (pref) {
+      prompt = prompt + "If possible, also include the following dietary preferences."
+
+      if (pref.calorieRange) {
+        prompt = prompt + "The dish should have between " + pref.calorieRange[0] + " and " + pref.calorieRange[1] + " calories."
+      }
+
+      if (pref.proteinLevel) {
+        prompt = prompt + "It should have a " + pref.proteinLevel + " protein level."
+      }
+
+      if (pref.sugarLevel) {
+        prompt = prompt + "It should have a " + pref.sugarLevel + " protein level."
+      }
+
+      if (pref.dietaryPreferences) {
+        prompt = "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences)
+      }
+    }
+    fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/' + prompt)
+      .then((response) => {
+        winnerContext.setRecipes(response);
+        navigate("/winner");
+      })
   }
 
   const newCard = (location) => {
