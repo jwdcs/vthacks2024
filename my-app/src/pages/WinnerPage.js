@@ -18,7 +18,7 @@ function WinnerPage() {
     };
 
     useEffect(() => {
-        if (winnerData === null) {
+        if (winnerData === null || winnerData.nationality === null) {
             navigate("/battle");
         }
     }, [winnerData, navigate]);
