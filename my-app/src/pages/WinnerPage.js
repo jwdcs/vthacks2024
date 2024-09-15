@@ -35,10 +35,7 @@ function WinnerPage() {
             }}
         >
             <Typography variant="h2" component="h1" gutterBottom>
-                We have a winner!
-            </Typography>
-            <Typography variant="h4" component="h2" gutterBottom>
-                {winnerData ? `The winner is ${winnerData.country}!` : 'Loading...'}
+                {winnerData.nationality + " "}Wins!
             </Typography>
             <Box sx={{ mt: 4, width: '80%' }}>
                 {winnerData && (
