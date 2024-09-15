@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
+import { useLogoutFunction } from '@propelauth/react';
 
 const LogoText = styled('span')(({ theme }) => ({
     fontFamily: 'Montserrat, sans-serif',
@@ -28,7 +29,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
     textTransform: 'none',
     position: 'relative',
     '&:hover': {
-        color: '#EA5723',
         '&::after': {
             content: '""',
             position: 'absolute',
@@ -42,8 +42,9 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const navigate = useNavigate(); // To handle redirects
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
+    const logout = useLogoutFunction();
 
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -53,9 +54,13 @@ const Header = () => {
         setAnchorEl(null);
     };
 
-    const handleSignOut = () => {
-        // Logic for sign out
-        console.log('Signing out...');
+    const handleSignOut = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error('Sign-out failed:', error);
+        }
         handleMenuClose();
     };
 
@@ -68,14 +73,14 @@ const Header = () => {
                         alt="Logo"
                         style={{ height: '50px' }}
                     />
-                    <LogoText>BiteFight</LogoText>
                 </Box>
 
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                    <StyledButton color="inherit" onClick={() => navigate('/battle')}>Battle!</StyledButton>
-                    <StyledButton color="inherit" onClick={() => navigate('/about')}>About</StyledButton>
-                    <StyledButton color="inherit" onClick={() => navigate('/services')}>Services</StyledButton>
+                    <StyledButton onClick={() => navigate('/battle')}><LogoText>Bite </LogoText> Fight!</StyledButton>
                 </Box>
+
+                <StyledButton color="inherit" onClick={() => navigate('/about')}>About</StyledButton>
+
 
                 <IconButton onClick={handleMenuClick} sx={{ ml: 2 }}>
                     <Avatar alt="Profile" />
@@ -86,6 +91,9 @@ const Header = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleMenuClose}
                 >
+                    <MenuItem onClick={() => {
+                        navigate("/preferences")
+                    }}>Profile</MenuItem>
                     <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                 </Menu>
             </Toolbar>

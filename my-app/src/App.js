@@ -4,7 +4,20 @@ import Game from './components/Game';
 import Header from './components/Header';
 import About from './pages/About';
 import Battle from './pages/Battle';
+import Preferences from './pages/Preferences'
 import { Box } from '@mui/material';
+import { withAuthInfo } from '@propelauth/react';
+
+const AuthBattle = withAuthInfo(Battle);
+
+// async function whoAmI(accessToken) {
+//   return fetch('/api/whoami', {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//     },
+//   }).then((res) => res.json())
+// }
 
 function App() {
   return (
@@ -12,11 +25,10 @@ function App() {
       <Box sx={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
         <Header />
         <Routes>
-          <Route path="/game" element={<Game />} />
-          <Route path="/battle" element={<Battle />} />
-          <Route path="/home" element={<Game />} />
+          <Route path="/battle" element={<AuthBattle />} />
+          <Route path="/" element={<AuthBattle />} />
           <Route path="/about" element={<About />} />
-          <Route path="/services" element={<></>} />
+          <Route path="/preferences" element={<Preferences />} />
         </Routes>
       </Box>
     </BrowserRouter>
