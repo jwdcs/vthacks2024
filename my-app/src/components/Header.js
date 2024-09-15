@@ -92,7 +92,7 @@ const Header = () => {
                     onClose={handleMenuClose}
                 >
                     <MenuItem onClick={() => {
-                        navigate("/services")
+                        navigate("/preferences")
                     }}>Profile</MenuItem>
                     <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                 </Menu>
