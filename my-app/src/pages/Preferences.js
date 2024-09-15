@@ -43,7 +43,7 @@ const Preferences = () => {
             //     throw new Error(`HTTP error! status: ${response.status}`);
             // }
             // const data = await response.json();
-            const data = localStorage.getItem("preferences")
+            const data = JSON.parse(localStorage.getItem("preferences"))
             if (data) {
                 console.log('Preferences fetched successfully:', data);
                 setVal(data.calorieRange || [0, 1000]);

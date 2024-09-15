@@ -78,7 +78,7 @@ function Battle() {
       }, 10)
     }, 18000)
     let prompt = "Give me a list of 5 " + bottomCountryRef.current.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
-    const pref = localStorage.getItem("preferences")
+    const pref = JSON.parse(localStorage.getItem("preferences"))
     if (pref) {
       prompt = prompt + "If possible, also include the following dietary preferences."
 
@@ -95,7 +95,7 @@ function Battle() {
       }
 
       if (pref.dietaryPreferences) {
-        prompt = "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences)
+        prompt = "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences).toString()
       }
     }
     fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
