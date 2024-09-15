@@ -269,7 +269,7 @@ function Battle() {
           </Button>
         </Box>
       </Modal >
-      <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
+      <Box sx={{ width: "100vw", height: "100vh", mt: 1, overflow: "hidden" }} className="gradient">
         <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
           <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
             <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>
@@ -292,8 +292,8 @@ function Battle() {
         </Box>
         {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 75, top: 270, zIndex: 999 }} width={250} src={riseRocks} />}
         {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}
-        {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 0, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
-        {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: -200, top: -300, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
+        {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: 0, top: 0, zIndex: 1000 }} width={"100%"} height={"100%"} src={confettiFall} />}
+        {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: -200, top: -300, zIndex: 1000 }} width={"100%"} height={"100%"} src={confettiFall} />}
 
 
       </Box>
