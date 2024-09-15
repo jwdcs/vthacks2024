@@ -32,7 +32,8 @@ function Battle() {
 
   const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
+  const openRef = useRef(true)
 
   const navigate = useNavigate(); // To handle redirects
   const winnerContext = useContext(WinnerContext);
@@ -94,7 +95,8 @@ function Battle() {
     }
     fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
       .then(async (response) => {
-        winnerContext.setRecipes(await response.json());
+        const recipes = await response.json()
+        winnerContext.setRecipes({ recipes: recipes, country: bottomCountry.name, nationality: bottomCountry.nationality });
         navigate("/winner");
       })
   }
@@ -196,7 +198,7 @@ function Battle() {
     if (DeviceOrientationEvent.requestPermission) {
       DeviceOrientationEvent.requestPermission().then(permissionState => {
         if (permissionState === 'granted') {
-          setOpen(false)
+          openRef.current = false
           window.addEventListener('devicemotion', (e) => {
             if (!winnerStateRef.current && topAnimationStateRef.current === null && bottomAnimationStateRef.current === null) {
               if (e.rotationRate.alpha > 300) {
@@ -227,6 +229,9 @@ function Battle() {
       }
     };
     fetchCards();
+    setTimeout(() => {
+      setOpen(openRef.current)
+    }, [200])
   }, [])
 
   return (
