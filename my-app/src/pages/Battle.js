@@ -71,7 +71,7 @@ function Battle() {
         setConfettiFallBox(false)
       }, 10)
     }, 18000)
-    const prompt = "Give me a list of 5 " + bottomCountry.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
+    let prompt = "Give me a list of 5 " + bottomCountry.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
     const pref = localStorage.getItem("preferences")
     if (pref) {
       prompt = prompt + "If possible, also include the following dietary preferences."
@@ -93,8 +93,8 @@ function Battle() {
       }
     }
     fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
-      .then((response) => {
-        winnerContext.setRecipes(response);
+      .then(async (response) => {
+        winnerContext.setRecipes(await response.json());
         navigate("/winner");
       })
   }
@@ -232,6 +232,7 @@ function Battle() {
 
   return (
     <>
+      <Button onClick={() => declareWinner()}>HERE</Button>
       <Modal
         open={open}
         onClose={() => {
