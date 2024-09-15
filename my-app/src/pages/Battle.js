@@ -41,6 +41,7 @@ function Battle() {
 
   let cards = useRef([]);
   const topCountryRef = useRef(topCountry)
+  const bottomCountryRef = useRef(bottomCountry)
   const topAnimationStateRef = useRef(topAnimationState)
   const bottomAnimationStateRef = useRef(bottomAnimationState)
   const winnerStateRef = useRef(winnerState)
@@ -48,6 +49,10 @@ function Battle() {
   useEffect(() => {
     topCountryRef.current = topCountry
   }, [topCountry])
+
+  useEffect(() => {
+    bottomCountryRef.current = bottomCountry
+  }, [bottomCountry])
 
   useEffect(() => {
     topAnimationStateRef.current = topAnimationState
@@ -72,7 +77,7 @@ function Battle() {
         setConfettiFallBox(false)
       }, 10)
     }, 18000)
-    let prompt = "Give me a list of 5 " + bottomCountry.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
+    let prompt = "Give me a list of 5 " + bottomCountryRef.current.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
     const pref = localStorage.getItem("preferences")
     if (pref) {
       prompt = prompt + "If possible, also include the following dietary preferences."
@@ -96,7 +101,7 @@ function Battle() {
     fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
       .then(async (response) => {
         const recipes = await response.json()
-        winnerContext.setRecipes({ recipes: recipes, country: bottomCountry.name, nationality: bottomCountry.nationality });
+        winnerContext.setRecipes({ recipes: recipes, country: bottomCountryRef.current.name, nationality: bottomCountryRef.current.nationality });
         navigate("/winner");
       })
   }
@@ -288,7 +293,7 @@ function Battle() {
           </Box>
         </Stack>
 
-        <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 200, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
+        <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 250, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
         </Box>
         {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 75, top: 270, zIndex: 999 }} width={250} src={riseRocks} />}
         {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}
