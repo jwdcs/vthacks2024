@@ -67,43 +67,45 @@ function Battle() {
   }, [winnerState])
 
   const declareWinner = () => {
-    setWinnerState(true)
-    setBottomAnimationState("winner")
-    setConfettiFall(confetti)
-    setConfettiFallBox(true)
-    setTimeout(() => {
-      setConfettiFall(null)
+    if (winnerStateRef.current === false) {
+      setWinnerState(true)
+      setBottomAnimationState("winner")
+      setConfettiFall(confetti)
+      setConfettiFallBox(true)
       setTimeout(() => {
-        setConfettiFallBox(false)
-      }, 10)
-    }, 18000)
-    let prompt = "Give me a list of 5 " + bottomCountryRef.current.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
-    const pref = JSON.parse(localStorage.getItem("preferences"))
-    if (pref) {
-      prompt = prompt + "If possible, also include the following dietary preferences."
+        setConfettiFall(null)
+        setTimeout(() => {
+          setConfettiFallBox(false)
+        }, 10)
+      }, 18000)
+      let prompt = "Give me a list of 5 " + bottomCountryRef.current.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
+      const pref = JSON.parse(localStorage.getItem("preferences"))
+      if (pref) {
+        prompt = prompt + "If possible, also include the following dietary preferences."
 
-      if (pref.calorieRange) {
-        prompt = prompt + "The dish should have between " + pref.calorieRange[0] + " and " + pref.calorieRange[1] + " calories."
-      }
+        if (pref.calorieRange) {
+          prompt = prompt + "The dish should have between " + pref.calorieRange[0] + " and " + pref.calorieRange[1] + " calories."
+        }
 
-      if (pref.proteinLevel) {
-        prompt = prompt + "It should have a " + pref.proteinLevel[0] + " to " + pref.proteinLevel[1] + " protein level."
-      }
+        if (pref.proteinLevel) {
+          prompt = prompt + "It should have a " + pref.proteinLevel[0] + " to " + pref.proteinLevel[1] + " protein level."
+        }
 
-      if (pref.sugarLevel) {
-        prompt = prompt + "It should have a " + pref.sugarLevel[0] + " to " + pref.sugarLevel[1] + " protein level."
-      }
+        if (pref.sugarLevel) {
+          prompt = prompt + "It should have a " + pref.sugarLevel[0] + " to " + pref.sugarLevel[1] + " protein level."
+        }
 
-      if (pref.dietaryPreferences) {
-        prompt = "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences).toString()
+        if (pref.dietaryPreferences) {
+          prompt = "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences).toString()
+        }
       }
+      fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
+        .then(async (response) => {
+          const recipes = await response.json()
+          winnerContext.setRecipes({ recipes: recipes, country: bottomCountryRef.current.name, nationality: bottomCountryRef.current.nationality });
+          navigate("/winner");
+        })
     }
-    fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
-      .then(async (response) => {
-        const recipes = await response.json()
-        winnerContext.setRecipes({ recipes: recipes, country: bottomCountryRef.current.name, nationality: bottomCountryRef.current.nationality });
-        navigate("/winner");
-      })
   }
 
   const newCard = (location) => {
