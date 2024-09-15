@@ -164,7 +164,7 @@ function Battle() {
       DeviceOrientationEvent.requestPermission().then(permissionState => {
         if (permissionState === 'granted') {
           window.addEventListener('devicemotion', (e) => {
-            if (!winnerStateRef.current && topAnimationState.current === null && bottomAnimationState.current === null) {
+            if (!winnerStateRef.current && topAnimationStateRef.current === null && bottomAnimationStateRef.current === null) {
               if (e.rotationRate.alpha > 300) {
                 topWins()
               } else if (e.rotationRate.alpha < -300) {
@@ -195,6 +195,8 @@ function Battle() {
 
   return (
     <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
+      <Button onClick={() => {
+      }}>hi</Button>
       <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
         <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
           <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>
