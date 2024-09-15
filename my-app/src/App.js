@@ -23,7 +23,7 @@ const AuthBattle = withAuthInfo(Battle);
 function App() {
   return (
     <BrowserRouter>
-      <Box sx={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+      <Box sx={{ width: "100vw", height: "100vh", }}>
         <Header />
         <Routes>
           <Route path="/battle" element={<AuthBattle />} />

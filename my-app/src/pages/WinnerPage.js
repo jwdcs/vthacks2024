@@ -30,7 +30,6 @@ function WinnerPage() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh',
                 textAlign: 'center',
                 p: 2,
             }}
