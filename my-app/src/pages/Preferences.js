@@ -36,13 +36,15 @@ const Preferences = () => {
 
     useEffect(() => {
         // Fetch preferences when component mounts
-        const fetchPreferences = async () => {
-            try {
-                const response = await fetch('http://localhost:5000/preferences'); // Adjust URL if needed
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
+        const fetchPreferences = () => {
+            //try {
+            // const response = await fetch('http://localhost:5000/preferences'); // Adjust URL if needed
+            // if (!response.ok) {
+            //     throw new Error(`HTTP error! status: ${response.status}`);
+            // }
+            // const data = await response.json();
+            const data = localStorage.getItem("preferences")
+            if (data) {
                 console.log('Preferences fetched successfully:', data);
                 setVal(data.calorieRange || [0, 1000]);
                 setProteinVal(data.proteinLevel || [0, 20]);
@@ -53,11 +55,14 @@ const Preferences = () => {
                     glutenFree: false,
                     pescatarian: false,
                 });
-            } catch (error) {
-                console.error('Error fetching preferences:', error);
-            } finally {
-                setHasFetched(true)
             }
+            setHasFetched(true)
+
+            // } catch (error) {
+            //     console.error('Error fetching preferences:', error);
+            // } finally {
+            //     setHasFetched(true)
+            // }
         };
 
         fetchPreferences();
@@ -99,17 +104,17 @@ const Preferences = () => {
         // Save preferences to LocalStorage
         localStorage.setItem('preferences', JSON.stringify(preferences));
 
-        // Optionally send preferences to the backend
-        fetch('http://localhost:5000/save_preferences', { // Ensure this URL matches your backend
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(preferences),
-        })
-            .then(response => response.json())
-            .then(result => console.log('Preferences saved:', result))
-            .catch(error => console.error('Error saving preferences:', error));
+        // // Optionally send preferences to the backend
+        // fetch('http://localhost:5000/save_preferences', { // Ensure this URL matches your backend
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(preferences),
+        // })
+        //     .then(response => response.json())
+        //     .then(result => console.log('Preferences saved:', result))
+        //     .catch(error => console.error('Error saving preferences:', error));
     };
 
     return (
