@@ -211,6 +211,8 @@ function Battle() {
           setOpen(true)
         }
       });
+    } else {
+      setOpen(true)
     }
   };
 

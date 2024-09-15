@@ -4,6 +4,7 @@ import Game from './components/Game';
 import Header from './components/Header';
 import About from './pages/About';
 import Battle from './pages/Battle';
+import WinnerPage from './pages/WinnerPage';
 import Preferences from './pages/Preferences'
 import { Box } from '@mui/material';
 import { withAuthInfo } from '@propelauth/react';
