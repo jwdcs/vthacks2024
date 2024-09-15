@@ -81,11 +81,11 @@ function Battle() {
       }
 
       if (pref.proteinLevel) {
-        prompt = prompt + "It should have a " + pref.proteinLevel + " protein level."
+        prompt = prompt + "It should have a " + pref.proteinLevel[0] + " to " + pref.proteinLevel[1] + " protein level."
       }
 
       if (pref.sugarLevel) {
-        prompt = prompt + "It should have a " + pref.sugarLevel + " protein level."
+        prompt = prompt + "It should have a " + pref.sugarLevel[0] + " to " + pref.sugarLevel[1] + " protein level."
       }
 
       if (pref.dietaryPreferences) {
