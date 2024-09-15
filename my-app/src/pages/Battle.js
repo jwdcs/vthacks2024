@@ -173,6 +173,10 @@ function Battle() {
               } else if (e.rotationRate.alpha < -300) {
                 bottomWins()
               }
+
+              if (Math.abs(e.rotationRate.gamma) > 500) {
+                declareWinner()
+              }
             }
           });
         }
