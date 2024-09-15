@@ -1,9 +1,9 @@
 [
     {
-        "name": "John Doe",
-        "email": "john@example.com",
-        "allergens": ["Peanuts", "Shellfish"],
-        "dietary_restrictions": ["Vegan"]
+        "Name": "John Doe",
+        "Descriptsion": ["Vegan"],
+        "Ingredient List": "john@example.com",
+        "Instructions": ["Peanuts", "Shellfish"]
     },
     {
         "name": "Jall Smith",
