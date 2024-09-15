@@ -71,7 +71,7 @@ function Battle() {
         setConfettiFallBox(false)
       }, 10)
     }, 18000)
-    const prompt = "Give me a list of 5 " + bottomCountry.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
+    let prompt = "Give me a list of 5 " + bottomCountry.nationality + " recipes. They all must be " + bottomCountry.nationality + ".";
     const pref = localStorage.getItem("preferences")
     if (pref) {
       prompt = prompt + "If possible, also include the following dietary preferences."
