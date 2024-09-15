@@ -36,10 +36,25 @@ function Battle() {
 
   let cards = useRef([]);
   const topCountryRef = useRef(topCountry)
+  const topAnimationStateRef = useRef(topAnimationState)
+  const bottomAnimationStateRef = useRef(bottomAnimationState)
+  const winnerStateRef = useRef(winnerState)
 
   useEffect(() => {
     topCountryRef.current = topCountry
   }, [topCountry])
+
+  useEffect(() => {
+    topAnimationStateRef.current = topAnimationState
+  }, [topAnimationState])
+
+  useEffect(() => {
+    bottomAnimationStateRef.current = bottomAnimationState
+  }, [bottomAnimationState])
+
+  useEffect(() => {
+    winnerStateRef.current = winnerState
+  }, [winnerState])
 
   const declareWinner = () => {
     setWinnerState(true)
@@ -149,15 +164,11 @@ function Battle() {
       DeviceOrientationEvent.requestPermission().then(permissionState => {
         if (permissionState === 'granted') {
           window.addEventListener('devicemotion', (e) => {
-            if (!winnerState) {
+            if (!winnerStateRef.current && topAnimationState.current === null && bottomAnimationState.current === null) {
               if (e.rotationRate.alpha > 300) {
-                if (topAnimationState === null && bottomAnimationState === null) {
-                  topWins()
-                }
+                topWins()
               } else if (e.rotationRate.alpha < -300) {
-                if (topAnimationState === null && bottomAnimationState === null) {
-                  bottomWins()
-                }
+                bottomWins()
               }
             }
           });
