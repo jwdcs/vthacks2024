@@ -3,3 +3,5 @@ flask-cors
 pymongo
 propelauth_fastapi
 fastapi
+openai==0.28
+python-dotenv
