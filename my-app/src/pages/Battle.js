@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Stack, Typography, Modal } from '@mui/material';
 import left from "../animations/left.webp"
 import right from "../animations/right.webp"
 import vs from "../animations/vs.webp"
@@ -32,7 +32,7 @@ function Battle() {
 
   const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   const navigate = useNavigate(); // To handle redirects
   const winnerContext = useContext(WinnerContext);
@@ -238,7 +238,17 @@ function Battle() {
           setOpen(false)
         }}
       >
-        <Box sx={style}>
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 4,
+        }}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Please click below to grant orientation access
           </Typography>
@@ -246,13 +256,15 @@ function Battle() {
             To use this application, tilt your device towards your preferred food.
             If you're happy with the winning food, tilt your device to the side.
           </Typography>
-          <Button onClick={() => {
+          <br />
+          <Button variant='contained' style={{ backgroundColor: '#EA5723' }} onClick={() => {
             requestOrientationPermission()
+            setOpen(false)
           }}>
             Grant Orientation Acess
           </Button>
         </Box>
-      </Modal>
+      </Modal >
       <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
         <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
           <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
