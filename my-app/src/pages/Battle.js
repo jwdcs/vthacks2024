@@ -85,6 +85,9 @@ function Battle() {
       setTopCountry(cards.current.pop())
     }
     setTopAnimationState("newCard")
+    setTimeout(() => {
+      setTopAnimationState(null)
+    }, 420)
     playVersusAnimation()
   }
 
