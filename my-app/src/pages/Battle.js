@@ -172,11 +172,11 @@ function Battle() {
                 topWins()
               } else if (e.rotationRate.alpha < -300) {
                 bottomWins()
-              }
-
-              if (Math.abs(e.rotationRate.gamma) > 500) {
+              } else if (Math.abs(e.rotationRate.gamma) > 500) {
                 declareWinner()
               }
+
+
             }
           });
         }
