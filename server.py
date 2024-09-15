@@ -4,6 +4,8 @@ import random
 import requests
 from propelauth_fastapi import init_auth, User
 from fastapi import Depends 
+import json
+import os
 
 # auth = init_auth("https://45264341.propelauthtest.com", "589e9cd8e93f5c992b0be9aae4b75e968b033bf86f089cdce694a2f4a02bed2740455ce3e6de475ef96ad48b6d6d916d")
 
@@ -31,9 +33,23 @@ countries = {
     "Belgium": "https://restcountries.com/v3.1/name/belgium?fullText=true"
 }
 
-# @app.get("/api/whoami")
-# async def root(current_user: User = Depends(auth.require_user)):
-#     return {"user_id": f"{current_user.user_id}"}
+preferences = {}
+
+@app.route('/save_preferences', methods=['POST'])
+def save_preferences():
+    global preferences
+    try:
+        preferences = request.json
+        return jsonify({'status': 'success', 'message': 'Preferences saved successfully'})
+    except Exception as e:
+        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
+@app.route('/preferences', methods=['GET'])
+def get_preferences():
+    try:
+        return jsonify(preferences)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/start_game', methods=['GET'])
 def start_game():
