@@ -32,7 +32,7 @@ function Battle() {
 
   const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   const navigate = useNavigate(); // To handle redirects
   const winnerContext = useContext(WinnerContext);
@@ -196,6 +196,7 @@ function Battle() {
     if (DeviceOrientationEvent.requestPermission) {
       DeviceOrientationEvent.requestPermission().then(permissionState => {
         if (permissionState === 'granted') {
+          setOpen(false)
           window.addEventListener('devicemotion', (e) => {
             if (!winnerStateRef.current && topAnimationStateRef.current === null && bottomAnimationStateRef.current === null) {
               if (e.rotationRate.alpha > 300) {
@@ -207,12 +208,8 @@ function Battle() {
               }
             }
           });
-        } else {
-          setOpen(true)
         }
       });
-    } else {
-      setOpen(true)
     }
   };
 
@@ -234,7 +231,6 @@ function Battle() {
 
   return (
     <>
-      <Button onClick={() => declareWinner()}>HERE</Button>
       <Modal
         open={open}
         onClose={() => {
