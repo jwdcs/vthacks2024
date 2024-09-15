@@ -32,7 +32,7 @@ function Battle() {
 
   const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const navigate = useNavigate(); // To handle redirects
   const winnerContext = useContext(WinnerContext);
