@@ -39,7 +39,7 @@ function WinnerPage() {
                 We have a winner!
             </Typography>
             <Typography variant="h4" component="h2" gutterBottom>
-                {winnerData ? `The winner is ${winnerData.countryName}` : 'Loading...'}
+                {winnerData ? `The winner is ${winnerData.country}!` : 'Loading...'}
             </Typography>
             <Box sx={{ mt: 4, width: '80%' }}>
                 {winnerData && (
@@ -47,7 +47,7 @@ function WinnerPage() {
                         <Typography variant="h5" component="h3" gutterBottom>
                             Top Recipes:
                         </Typography>
-                        {winnerData.recipes.map((recipe, index) => (
+                        {winnerData.recipes.recipes.map((recipe, index) => (
                             <Box key={index} sx={{ mb: 2 }}>
                                 <Box
                                     sx={{
