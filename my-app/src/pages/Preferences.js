@@ -191,7 +191,7 @@ const Preferences = () => {
                     <FontAwesomeIcon
                         icon={faCheese}
                         size="4x"
-                        style={{ color: activeIcons.lactoseIntolerant ? 'red' : 'white' }}
+                        style={{ color: activeIcons.lactoseIntolerant ? 'EA5723' : 'white' }}
                     />
                     <Typography
                         sx={{
@@ -203,7 +203,7 @@ const Preferences = () => {
                     <FontAwesomeIcon
                         icon={faLeaf}
                         size="4x"
-                        style={{ color: activeIcons.vegetarian ? 'red' : 'white' }}
+                        style={{ color: activeIcons.vegetarian ? 'EA5723' : 'white' }}
                     />
                     <Typography
                         sx={{
@@ -217,7 +217,7 @@ const Preferences = () => {
                     <FontAwesomeIcon
                         icon={faBreadSlice}
                         size="4x"
-                        style={{ color: activeIcons.glutenFree ? 'red' : 'white' }}
+                        style={{ color: activeIcons.glutenFree ? 'EA5723' : 'white' }}
                     />
                     <Typography
                         sx={{
@@ -229,7 +229,7 @@ const Preferences = () => {
                     <FontAwesomeIcon
                         icon={faFish}
                         size="4x"
-                        style={{ color: activeIcons.pescatarian ? 'red' : 'white' }}
+                        style={{ color: activeIcons.pescatarian ? 'EA5723' : 'white' }}
                     />
                     <Typography
                         sx={{
