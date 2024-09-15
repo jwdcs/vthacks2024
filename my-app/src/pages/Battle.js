@@ -35,6 +35,11 @@ function Battle() {
   const navigate = useNavigate(); // To handle redirects
 
   let cards = useRef([]);
+  const topCountryRef = useRef(topCountry)
+
+  useEffect(() => {
+    topCountryRef.current = topCountry
+  }, [topCountry])
 
   const declareWinner = () => {
     setWinnerState(true)
@@ -50,17 +55,16 @@ function Battle() {
   }
 
   const newCard = (location) => {
-    console.log(cards)
     if (cards.current.length === 0) {
       if (location === "top") {
-        setBottomCountry(topCountry)
+        setBottomCountry(topCountryRef.current)
       }
       declareWinner()
       return;
     }
 
     if (location === "top") {
-      setBottomCountry(topCountry)
+      setBottomCountry(topCountryRef.current)
       setTopCountry(cards.current.pop())
     } else {
       setTopCountry(cards.current.pop())
@@ -169,7 +173,6 @@ function Battle() {
         const response = await fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/start_game');
         if (!response.ok) throw new Error('Network response was not ok');
         cards.current = await response.json();
-        console.log(cards.current)
         setTopCountry(cards.current.pop())
         setBottomCountry(cards.current.pop())
       } catch (error) {
