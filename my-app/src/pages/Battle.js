@@ -37,7 +37,7 @@ function Battle() {
 
   const navigate = useNavigate(); // To handle redirects
   const winnerContext = useContext(WinnerContext);
-
+  const alreadySentRef = useRef(false)
 
   let cards = useRef([]);
   const topCountryRef = useRef(topCountry)
@@ -92,18 +92,21 @@ function Battle() {
         }
 
         if (pref.sugarLevel) {
-          prompt = prompt + "It should have a " + pref.sugarLevel[0] + " to " + pref.sugarLevel[1] + " protein level."
+          prompt = prompt + "It should have a " + pref.sugarLevel[0] + " to " + pref.sugarLevel[1] + " sugar level."
         }
 
         if (pref.dietaryPreferences) {
-          prompt = "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences).toString()
+          prompt = prompt + "I also have the following dietary preferences: " + Object.entries(pref.dietaryPreferences).toString()
         }
       }
       fetch('https://vthacks2024-backend-1095352764453.us-east4.run.app/getRecipes/' + prompt)
         .then(async (response) => {
           const recipes = await response.json()
-          winnerContext.setRecipes({ recipes: recipes, country: bottomCountryRef.current.name, nationality: bottomCountryRef.current.nationality });
-          navigate("/winner");
+          if (alreadySentRef.current === false) {
+            winnerContext.setRecipes({ recipes: recipes, country: bottomCountryRef.current.name, nationality: bottomCountryRef.current.nationality });
+            navigate("/winner");
+          }
+          alreadySentRef.current = true
         })
     }
   }

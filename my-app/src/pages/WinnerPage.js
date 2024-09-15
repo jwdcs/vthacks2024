@@ -17,11 +17,12 @@ function WinnerPage() {
         setExpandedRecipe(expandedRecipe === index ? null : index);
     };
 
+
     useEffect(() => {
-        if (winnerData === null || winnerData.nationality === null) {
+        if (winnerData === null) {
             navigate("/battle");
         }
-    }, [winnerData, navigate]);
+    }, []);
 
     return (
         <Box
@@ -35,7 +36,7 @@ function WinnerPage() {
             }}
         >
             <Typography variant="h2" component="h1" gutterBottom>
-                {winnerData.nationality + " Food "}Wins!
+                {winnerData?.nationality + " Food "}Wins!
             </Typography>
             <Box sx={{ mt: 4, width: '80%' }}>
                 {winnerData && (
