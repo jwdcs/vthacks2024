@@ -13,6 +13,8 @@ const Preferences = () => {
         { value: 600, label: "600" },
         { value: 800, label: "800" },
         { value: 1000, label: "1000" },
+        { value: 1200, label: "1200" },
+        { value: 1400, label: "1400" },
     ];
 
     const proteinMarks = [
@@ -21,7 +23,7 @@ const Preferences = () => {
         { value: 20, label: "High" },
     ];
 
-    const [val, setVal] = useState([0, 1000]);
+    const [val, setVal] = useState([0, 1400]);
     const [proteinVal, setProteinVal] = useState([0, 20]);
     const [sugarVal, setSugarVal] = useState([0, 20]);
     const [activeIcons, setActiveIcons] = useState({
@@ -30,6 +32,7 @@ const Preferences = () => {
         glutenFree: false,
         pescatarian: false,
     });
+    const [hasFetched, setHasFetched] = useState(false)
 
     useEffect(() => {
         // Fetch preferences when component mounts
@@ -52,11 +55,19 @@ const Preferences = () => {
                 });
             } catch (error) {
                 console.error('Error fetching preferences:', error);
+            } finally {
+                setHasFetched(true)
             }
         };
 
         fetchPreferences();
     }, []);
+
+    useEffect(() => {
+        if (hasFetched) {
+            handleSetPreferences()
+        }
+    }, [val, proteinVal, sugarVal, activeIcons, hasFetched])
 
     const updateRange = (e, newValue) => {
         setVal(newValue);
@@ -142,7 +153,7 @@ const Preferences = () => {
                 min={0}
                 step={25}
                 sx={{ color: "#EA5723" }}
-                max={1000}
+                max={1400}
             />
             <Typography
                 variant="h5"
@@ -238,21 +249,6 @@ const Preferences = () => {
                         }}> Pescatarian </Typography>
                 </Stack>
             </Stack>
-
-            <Button
-                variant="contained"
-                onClick={handleSetPreferences}
-                sx={{
-                    marginTop: '30px',
-                    backgroundColor: '#EA5723',
-                    color: '#ffffff',
-                    ':hover': {
-                        backgroundColor: '#d94d1f',
-                    },
-                }}
-            >
-                Set Preferences
-            </Button>
         </Box>
     );
 };
