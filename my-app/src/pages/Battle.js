@@ -216,7 +216,7 @@ function Battle() {
         </Box>
       </Stack>
 
-      <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 100, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
+      <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 250, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
       </Box>
       {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 220, zIndex: 999 }} width={250} src={riseRocks} />}
       {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}

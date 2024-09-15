@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .fall {
   animation: fall 1s ease-in forwards;
 }
