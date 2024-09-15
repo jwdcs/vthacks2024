@@ -1,12 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { WinnerContext } from '../WinnerContext.js';
+import { useNavigate } from 'react-router-dom';
 
 function WinnerPage() {
     const winnerContext = useContext(WinnerContext);
+    const navigate = useNavigate(); // To handle redirects
 
     // Extract winner data from context
     const winnerData = winnerContext.recipes ?? null;
+
+
+    useEffect(() => {
+        if (winnerData === null) {
+            navigate("/battle")
+        }
+    }, [])
 
     return (
         <Box
