@@ -29,6 +29,7 @@ function App() {
           <Route path="/" element={<AuthBattle />} />
           <Route path="/about" element={<About />} />
           <Route path="/preferences" element={<Preferences />} />
+          <Route path="/winner" element={<About />} />
         </Routes>
       </Box>
     </BrowserRouter>

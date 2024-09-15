@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { redirect, useNavigate } from 'react-router-dom';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import left from "../animations/left.webp"
 import right from "../animations/right.webp"
 import vs from "../animations/vs.webp"
@@ -32,6 +32,7 @@ function Battle() {
 
   const [topCountry, setTopCountry] = useState({ name: "loading", nationality: "loading" });
   const [bottomCountry, setBottomCountry] = useState({ name: "loading", nationality: "loading" });
+  const [open, setOpen] = useState(false)
 
   const navigate = useNavigate(); // To handle redirects
   const winnerContext = useContext(WinnerContext);
@@ -206,6 +207,8 @@ function Battle() {
               }
             }
           });
+        } else {
+          setOpen(true)
         }
       });
     }
@@ -228,34 +231,57 @@ function Battle() {
   }, [])
 
   return (
-    <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
-      <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
-        <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
-          <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>
-            <GameCard country={topCountry}></GameCard>
+    <>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false)
+        }}
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Please click below to grant orientation access
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            To use this application, tilt your device towards your preferred food.
+            If you're happy with the winning food, tilt your device to the side.
+          </Typography>
+          <Button onClick={() => {
+            requestOrientationPermission()
+          }}>
+            Grant Orientation Acess
+          </Button>
+        </Box>
+      </Modal>
+      <Box sx={{ width: "100vw", height: "100vh", mt: 1 }} className="gradient">
+        <Stack sx={{ width: "100%", height: "calc(100% - 70px)" }} alignItems="center" direction="column">
+          <Box sx={{ position: "relative", border: winnerState ? "0px solid #121212" : "1px solid #EA5723", width: "60%", height: "40%", transition: "border 1s" }}>
+            <Box className={topAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 3, opacity: winnerState ? 0 : 1 }}>
+              <GameCard country={topCountry}></GameCard>
+            </Box>
           </Box>
-        </Box>
-        <Box sx={{ width: "100%", height: 150, position: "relative" }}>
-          {rightLightningBox && <Box component="img" sx={{ position: "absolute", left: 200, top: 0 }} width={250} src={rightLightning} />}
-          {versusBox && <Box component="img" sx={{ position: "absolute", left: 80, top: 0, zIndex: 2 }} width={250} src={versus} />}
-          {leftLightningBox && <Box component="img" sx={{ position: "absolute", left: -40, top: 0 }} width={250} src={leftLightning} />}
-        </Box>
-        <Box sx={{ position: "relative", zIndex: 2, border: winnerState ? "0px solid #EA5723" : "1px solid 121212", width: "60%", height: "40%", transition: "border 1s" }}>
-          <Box className={bottomAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 2 }}>
-            <GameCard country={bottomCountry}></GameCard>
+          <Box sx={{ width: "100%", height: 150, position: "relative" }}>
+            {rightLightningBox && <Box component="img" sx={{ position: "absolute", left: 200, top: 0 }} width={250} src={rightLightning} />}
+            {versusBox && <Box component="img" sx={{ position: "absolute", left: 80, top: 0, zIndex: 2 }} width={250} src={versus} />}
+            {leftLightningBox && <Box component="img" sx={{ position: "absolute", left: -40, top: 0 }} width={250} src={leftLightning} />}
           </Box>
-        </Box>
-      </Stack>
+          <Box sx={{ position: "relative", zIndex: 2, border: winnerState ? "0px solid #EA5723" : "1px solid 121212", width: "60%", height: "40%", transition: "border 1s" }}>
+            <Box className={bottomAnimationState} sx={{ position: "absolute", width: "100%", height: "100%", zIndex: 2 }}>
+              <GameCard country={bottomCountry}></GameCard>
+            </Box>
+          </Box>
+        </Stack>
 
-      <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 200, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
+        <Box sx={{ backgroundImage: `url(${stone})`, width: "100%", height: 200, position: "absolute", zIndex: 1, top: "calc(100% - 100px)", left: 0 }}>
+        </Box>
+        {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 80, top: 250, zIndex: 999 }} width={250} src={riseRocks} />}
+        {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}
+        {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 0, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
+        {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: -200, top: -300, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
+
+
       </Box>
-      {riseRocksBox && <Box component="img" sx={{ position: "absolute", left: 80, top: 250, zIndex: 999 }} width={250} src={riseRocks} />}
-      {fallSmokeBox && <Box component="img" sx={{ position: "absolute", left: -60, top: "calc(100vh - 210px)", zIndex: 999 }} width={500} src={fallSmoke} />}
-      {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: 60, top: 0, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
-      {confettiFallBox && <Box component="img" sx={{ position: "absolute", left: -200, top: -300, zIndex: 1000 }} width={700} height={700} src={confettiFall} />}
-
-
-    </Box>
+    </>
   );
 }
 

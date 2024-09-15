@@ -1,3 +1,3 @@
-import { winnerContext } from 'react';
+import { createContext } from 'react';
 
-export const winnerContext = createContext();
+export const WinnerContext = createContext();
